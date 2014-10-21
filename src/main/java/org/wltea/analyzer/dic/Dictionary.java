@@ -78,6 +78,10 @@ public class Dictionary {
     private Dictionary(){
         logger = Loggers.getLogger("ik-analyzer");
     }
+    
+    private ESLogger getLogger(){
+    	return logger;
+    }
 
 	/**
 	 * 词典初始化
@@ -102,11 +106,11 @@ public class Dictionary {
                     
                   //建立监控线程
                     for(String location:cfg.getRemoteExtDictionarys()){
-                        Thread monitor = new Thread(new Monitor(location));
+                        Thread monitor = new Thread(new Monitor(location,singleton.getLogger()));
                 	monitor.start();
                     }
                     for(String location:cfg.getRemoteExtStopWordDictionarys()){
-                        Thread monitor = new Thread(new Monitor(location));
+                        Thread monitor = new Thread(new Monitor(location,singleton.getLogger()));
                 	monitor.start();
                     }
                     
